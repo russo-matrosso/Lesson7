@@ -31,10 +31,8 @@ class Train
       false
     end
 
-  def list_of_wagons(block)
-    wagons.each do |wagon|
-      block.call(wagon)
-    end  
+  def list_of_wagons
+    wagons.each { |wagon| yield wagon } if block_given?
   end
 
   def add_wagons(wagon)
@@ -59,11 +57,14 @@ class Train
     #пользователь может назначать маршрут поезду
     @route = route
     self.station = self.route.stations.first
+    self.station.get_train(self)
   end
 
   def move_next_station
     #пользователь может перемещать поезд по маршруту вперед
-      self.station = self.route.stations[self.route.stations.index(self.station) + 1]
+    self.station.send_train(self)
+    self.station = self.route.stations[self.route.stations.index(self.station) + 1]
+    self.station.get_train(self)
   end
 
   def move_previous_station

@@ -30,13 +30,6 @@ class Station
       block.call(train)
     end
   end
-  
-  protected
-
-  def validate!
-    raise "Name can't be nill" if name == "" || name.nil?
-         
-  end
 
   def get_train(train)
     #пользователь не может принять станцией поезд
@@ -47,6 +40,14 @@ class Station
     #пользователь не может послать станией поезд
     self.trains.delete(train)
   end
+  
+  protected
+
+  def validate!
+    raise "Name can't be nill" if name == "" || name.nil?
+         
+  end
+
 
 end
 
